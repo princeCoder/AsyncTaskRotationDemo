@@ -37,7 +37,7 @@ app/src/androidTest/
 
 # other files
 .idea/
-app/app.iml
+app.iml
 AsyncTaskRotationDemo.iml
 build.gradle
 gradle.properties
