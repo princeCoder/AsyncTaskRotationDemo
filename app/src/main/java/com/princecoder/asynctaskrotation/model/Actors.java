@@ -1,4 +1,4 @@
-package com.princecoder.asynctaskrotation;
+package com.princecoder.asynctaskrotation.model;
 
 import java.io.Serializable;
 

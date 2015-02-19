@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import com.princecoder.asynctaskrotation.model.Actors;
+import com.princecoder.asynctaskrotation.utils.ViewHolder;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 

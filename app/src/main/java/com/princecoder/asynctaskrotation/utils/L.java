@@ -1,4 +1,4 @@
-package com.princecoder.asynctaskrotation;
+package com.princecoder.asynctaskrotation.utils;
 
 import android.content.Context;
 import android.util.Log;

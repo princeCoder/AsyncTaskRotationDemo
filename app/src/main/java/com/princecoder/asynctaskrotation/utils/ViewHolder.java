@@ -1,8 +1,10 @@
-package com.princecoder.asynctaskrotation;
+package com.princecoder.asynctaskrotation.utils;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.princecoder.asynctaskrotation.R;
 
 /**
  * Created by prinzlyngotoum on 12/4/14.

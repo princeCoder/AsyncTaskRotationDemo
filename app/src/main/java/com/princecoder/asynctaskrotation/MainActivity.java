@@ -10,6 +10,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.princecoder.asynctaskrotation.model.Actors;
+import com.princecoder.asynctaskrotation.presenter.Presenter;
+import com.princecoder.asynctaskrotation.utils.L;
+
 import java.util.ArrayList;
 
 
@@ -23,6 +27,7 @@ public class MainActivity extends Activity implements IActivity {
     private ActorAdapter mAdapter;
     private ProgressDialog mProgressDialog;
     private PlaceHolderFragment mFragment;
+    private Presenter mPresenter;
     private Button mBtnSubmit;
 
     @Override
@@ -40,23 +45,15 @@ public class MainActivity extends Activity implements IActivity {
                 setLisOfActors((ArrayList<Actors>) savedInstanceState.getSerializable("listOfActorSaved"));
             }
         }
-
+        //Initialize the adapter
         mAdapter = new ActorAdapter(getApplicationContext(), R.layout.row, getLisOfActors());
 
+        //Initialize the presenter
+        mPresenter=new Presenter(mFragment,this);
+
+        //Set UIs
         onUiCreated();
 
-        if (mFragment != null) {
-            if (mFragment.mMyTask != null
-                    && mFragment.mMyTask.getStatus() == AsyncTask.Status.RUNNING) {// If the task is running
-                L.m("display " + mFragment.mMyTask);
-                mProgressDialog = ProgressDialog.show(this, "Fetching", "Please wait !!!");
-            } else { //The task is not running any more
-                L.m("remove " + mFragment.mMyTask);
-                afterFetching();
-            }
-        } else {
-            L.toast(getApplicationContext(), "Fragment is null");
-        }
     }
 
     /**
@@ -64,6 +61,7 @@ public class MainActivity extends Activity implements IActivity {
      *
      * @return
      */
+    @Override
     public ArrayList<Actors> getLisOfActors() {
         return mActorsList;
     }
@@ -94,8 +92,10 @@ public class MainActivity extends Activity implements IActivity {
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mFragment.isAdded()) {
-                    mFragment.performOperations();
+                if (mFragment.isAdded()) {//Check if the fragment is added
+                    //I use the presenter to perform task
+                    mPresenter.performTask();
+//                    mFragment.performOperations();
                 }
             }
         });
@@ -106,9 +106,23 @@ public class MainActivity extends Activity implements IActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long id) {
                 // TODO Auto-generated method stub
-                L.toast(getApplicationContext(), mActorsList.get(position).getName());
+                mPresenter.displayMessage(mActorsList.get(position).getName());
+//                L.toast(getApplicationContext(), mActorsList.get(position).getName());
             }
         });
+
+        if (mFragment != null) {
+            if (mFragment.mMyTask != null
+                    && mFragment.mMyTask.getStatus() == AsyncTask.Status.RUNNING) {// If the task is running
+                L.m("display " + mFragment.mMyTask);
+                mProgressDialog = ProgressDialog.show(this, "Fetching", "Please wait !!!");
+            } else { //The task is not running any more
+                L.m("remove " + mFragment.mMyTask);
+                afterFetching();
+            }
+        } else {
+            L.toast(getApplicationContext(), "Fragment is null");
+        }
     }
 
     @Override
@@ -139,10 +153,10 @@ public class MainActivity extends Activity implements IActivity {
     }
 
     //To avoid the :Activity has leaked window com.android.internal.policy... exception
+    @Override
     public void Detach() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
-
 }
