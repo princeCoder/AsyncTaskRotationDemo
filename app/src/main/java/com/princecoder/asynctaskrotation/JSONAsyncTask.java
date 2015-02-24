@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
-    IActivity mActivity;
+    private IActivity mActivity;
 
     public JSONAsyncTask(IActivity activity) {
         onAttach(activity);
@@ -71,7 +71,6 @@ public class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
      * Called when the fragment is detached to the activity
      */
     public void onDetach() {
-//        ((MainActivity) mActivity).Detach();
         mActivity.Detach();
         mActivity = null;
     }

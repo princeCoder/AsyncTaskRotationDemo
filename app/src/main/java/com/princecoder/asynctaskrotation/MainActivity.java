@@ -1,9 +1,9 @@
 package com.princecoder.asynctaskrotation;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * @author prinzlyngotoum
  */
-public class MainActivity extends Activity implements IActivity {
+public class MainActivity extends ActionBarActivity implements IActivity {
 
     private ArrayList<Actors> mActorsList;
     private ListView mlistview;
@@ -52,50 +52,19 @@ public class MainActivity extends Activity implements IActivity {
         mPresenter=new Presenter(mFragment,this);
 
         //Set UIs
-        onUiCreated();
-
-    }
-
-    /**
-     * Get the list of Actors
-     *
-     * @return
-     */
-    @Override
-    public ArrayList<Actors> getLisOfActors() {
-        return mActorsList;
-    }
-
-
-    /**
-     * Set the liste of actors
-     *
-     * @param list
-     */
-    public void setLisOfActors(ArrayList<Actors> list) {
-        mActorsList = list;
-    }
-
-    /**
-     * set UI elements
-     */
-    public void onUiCreated() {
         mBtnSubmit = (Button) findViewById(R.id.btnSubmit);
         mlistview = (ListView) findViewById(R.id.list);
 
         // Set the adapter
-
         mlistview.setAdapter(mAdapter);
 
         // listerners
-
         mBtnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mFragment.isAdded()) {//Check if the fragment is added
                     //I use the presenter to perform task
                     mPresenter.performTask();
-//                    mFragment.performOperations();
                 }
             }
         });
@@ -107,7 +76,6 @@ public class MainActivity extends Activity implements IActivity {
                                     long id) {
                 // TODO Auto-generated method stub
                 mPresenter.displayMessage(mActorsList.get(position).getName());
-//                L.toast(getApplicationContext(), mActorsList.get(position).getName());
             }
         });
 
@@ -123,7 +91,29 @@ public class MainActivity extends Activity implements IActivity {
         } else {
             L.toast(getApplicationContext(), "Fragment is null");
         }
+
     }
+
+    /**
+     * Get the list of Actors
+     *
+     * @return
+     */
+    @Override
+    public ArrayList<Actors> getLisOfActors() {
+        return mActorsList;
+    }
+
+
+    /**
+     * Set the list of actors
+     *
+     * @param list
+     */
+    public void setLisOfActors(ArrayList<Actors> list) {
+        mActorsList = list;
+    }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

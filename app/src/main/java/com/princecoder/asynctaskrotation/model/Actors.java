@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 public class Actors implements Serializable {
 
+    private int actorId;
     private String name;
     private String description;
     private String dob;
@@ -37,6 +38,13 @@ public class Actors implements Serializable {
         this.image = image;
     }
 
+    public int getActorId() {
+        return actorId;
+    }
+
+    public void setActorId(int actorId) {
+        this.actorId = actorId;
+    }
 
     public String getName() {
         return name;

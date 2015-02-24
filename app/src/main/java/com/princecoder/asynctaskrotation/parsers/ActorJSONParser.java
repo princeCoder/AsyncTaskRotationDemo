@@ -34,6 +34,7 @@ public class ActorJSONParser {
                 actor.setSpouse(obj.getString("spouse"));
                 actor.setChildren(obj.getString("children"));
                 actor.setImage(obj.getString("image"));
+                actor.setActorId(obj.getInt("actorId"));
                 actorsList.add(actor);
 			}
 			

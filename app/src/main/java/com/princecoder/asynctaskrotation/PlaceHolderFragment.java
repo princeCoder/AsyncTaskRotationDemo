@@ -6,7 +6,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import com.princecoder.asynctaskrotation.utils.L;
 
 /**
  * Created by prinzlyngotoum on 12/4/14.
@@ -52,7 +53,7 @@ public class PlaceHolderFragment extends Fragment {
         if (isOnline()) {
             requestData();
         } else {
-            Toast.makeText(getActivity(), "Network isn't available", Toast.LENGTH_LONG).show();
+            L.m("Network isn't available");
         }
 
     }
